@@ -1,2 +1,2 @@
 # PastaBar
-This repository is about a pasta bar ordering system / menu
+This is about a pasta bar phone ordering system
