@@ -19,9 +19,12 @@ def print_with_indexes(l):
         print("{} : {:<30} ${:.2f}".format(i, l[i][0], l[i][1]))
 
 
-def print_pasta(l):
+def review_pasta(l):
     print_with_indexes(l)
     print("-" * 50)
+
+
+def order_pasta(l):
 
 
 def main():
@@ -59,8 +62,7 @@ def main():
 
     menu_list = [
         ["P", "Print menu"],
-        ["Q", "Quit"],
-        ["O", "Order"]
+        ["Q", "Quit"]
     ]
 
     food_menu = [
@@ -70,9 +72,9 @@ def main():
         [4, "Desserts"],
     ]
 
-    order_list = [
+    temp_list = []
 
-    ]
+    order_list = []
 
 #  MENU LOOP
     menu_loop = True
@@ -90,23 +92,20 @@ def main():
             choose_menu = get_integer("Select the number of the menu you would like to print ---> ")
             if choose_menu == 1:
                 print("-" * 50)
-                print_pasta(pasta_menu)
+                review_pasta(pasta_menu)
             elif choose_menu == 2:
                 print("-" * 50)
-                print_pasta(vegan_menu)
+                review_pasta(vegan_menu)
             elif choose_menu == 3:
                 print("-" * 50)
-                print_pasta(antipasto_menu)
+                review_pasta(antipasto_menu)
             elif choose_menu == 4:
                 print("-" * 50)
-                print_pasta(desserts_menu)
+                review_pasta(desserts_menu)
             else:
                 print("-" * 25)
                 print("invalid entry, try again")
                 print("-" * 50)
-        # CHOICE O
-        elif user_choice == "O":
-
         # CHOICE Q
         elif user_choice == "Q":
             menu_loop = False
@@ -116,6 +115,8 @@ def main():
             print("-" * 25)
             print("invalid entry, try again")
             print("-" * 50)
+
+
 
 if __name__ == "__main__":
     main()
