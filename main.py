@@ -18,6 +18,9 @@ def print_with_indexes(l):
     for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
         print("{} : {:<30} ${:.2f}".format(i, l[i][0], l[i][1]))
 
+def add_pasta():
+    return None
+
 
 def review_pasta(l):
     print_with_indexes(l)
