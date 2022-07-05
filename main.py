@@ -37,6 +37,30 @@ def temp_list_append(l):
     review_order(order_list)
     print("-" * 50)
 
+def print_pasta(m):
+    print_list(m)
+    print("-" * 50)
+
+def order(m):
+    order_loop = True
+    while order_loop is True:
+        print_with_price(m)
+        temp_list_append(m)
+        if get_confirmation() is False:
+            return None
+
+        # do you want to order again
+        # if not return None
+
+def get_confirmation(m = "Do you want to continue on this menu (C) or return back the main menu (R)"):
+    response = input(m)
+    while response not in ["C", "R"]:
+        print("This is not a recognised entry")
+        return False
+    if response == "C":
+        return True
+    else:
+        return False
 
 def get_order_menu():
     pasta_menu = [
@@ -100,31 +124,6 @@ def get_order_menu():
         print("Invalid entry, try again")
         print("-" * 50)
 
-
-def print_pasta(m):
-    print_list(m)
-    print("-" * 50)
-
-def order(m):
-    order_loop = True
-    while order_loop is True:
-        print_with_price(m)
-        temp_list_append(m)
-        if get_confirmation() is False:
-            return None
-
-        # do you want to order again
-        # if not return None
-
-def get_confirmation(m = "Do you want to continue on this menu (C) or return back the main menu (R)"):
-    response = get_string(m)
-    while response not in ["C", "R"]:
-        print("This is not a recognised entry")
-    if response == "C":
-        return True
-    else:
-        return False
-
 def main():
     menu_list = [
         ["P", "Print menu"],
@@ -145,12 +144,10 @@ def main():
         if user_choice == "P":
             menu = get_order_menu()
             print_with_price(menu)
-
         # CHOICE O
         elif user_choice == "O":
             menu = get_order_menu()
             order(menu)
-
         # CHOICE Q
         elif user_choice == "Q":
             menu_loop = False

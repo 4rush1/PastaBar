@@ -1,0 +1,41 @@
+arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git add .
+arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   .DS_Store
+        modified:   PlanningSite/.DS_Store
+        modified:   PlanningSite/Planning_site_pasta/assets/.DS_Store
+        new file:   PlanningSite/Planning_site_pasta/assets/img/Sprint1plan.jpg
+        new file:   PlanningSite/Planning_site_pasta/assets/img/Sprint2Backlog.png
+        new file:   PlanningSite/Planning_site_pasta/assets/img/Sprint2paper_plan.jpg
+        modified:   main.py
+        modified:   test.py
+        new file:   test_a.py
+
+arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git commit -a -m "Sprint 2 nearly done"
+[main c051124] Sprint 2 nearly done
+ 9 files changed, 384 insertions(+), 80 deletions(-)
+ create mode 100644 PlanningSite/Planning_site_pasta/assets/img/Sprint1plan.jpg
+ create mode 100644 PlanningSite/Planning_site_pasta/assets/img/Sprint2Backlog.png
+ create mode 100644 PlanningSite/Planning_site_pasta/assets/img/Sprint2paper_plan.jpg
+ create mode 100644 test_a.py
+arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git status
+On branch main
+Your branch is ahead of 'origin/main' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git push origin main
+Enumerating objects: 24, done.
+Counting objects: 100% (24/24), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (14/14), done.
+Writing objects: 100% (14/14), 4.09 MiB | 1005.00 KiB/s, done.
+Total 14 (delta 7), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (7/7), completed with 6 local objects.
+To github.com:4rush1/PastaBar.git
+   ec1d841..c051124  main -> main
+arushibhatnagar-stewart@MacBook-Pro-3 PastaBar %
