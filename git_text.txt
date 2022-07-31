@@ -1,3 +1,16 @@
+git status
+git add .
+git status
+git commit -a -m "Planning images added for sprint 2 and debugging"
+git push origin main
+
+
+
+
+
+
+
+
 arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git add .
 arushibhatnagar-stewart@MacBook-Pro-3 PastaBar % git status
 On branch main

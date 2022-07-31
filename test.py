@@ -3,8 +3,11 @@ def get_integer(l):
     return my_integer
 
 def get_string(l):
-    my_string = input(l)
-    return my_string
+    try:
+        my_string = input(l)
+        return my_string.upper()
+    except:
+        print("sorry invalid entry, try again")
 
 def print_list(l):
     for i in range(0, len(l)):
@@ -19,37 +22,33 @@ def print_with_indexes(l):
     for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
         print("{} : {}".format(i, l[i][0]))
 
-def review_order(l):
+def print_order_with_indexes(l):
+    for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
+        print("{} : {} {}".format(i, l[i][0], l[i][1]))
+
+#def review_total_order_grand(o_list):
+    #for i in range(0, len(o_list)):
+    #    grand_total = sum(o_list[i][2])
+   #     print("your total bill is {:.2f}".format(grand_total))
+
+def review_total_order(l):
     for i in range(0, len(l)):
-        print("-" * 50)
+
         output = "You have ordered {} {} for ${:.2f}".format(l[i][0], l[i][1], l[i][2])
         print(output)
 
+def review_order(l):
+    output = "You have ordered {} {} for ${:.2f}".format(l[0], l[1], l[2])
+    print(output)
+
 def print_pasta(m):
     print_list(m)
-    print("-" * 50)
-
-def order(m):
-    order_loop = True
-    while order_loop is True:
-        print_with_price(m)
-        order_list = []
-        dish = get_integer("Enter the number of the dish you would like to order ---> ")
-        name = m[dish][0]
-        amount = get_integer("How many would you like ---> ")
-        price = m[dish][1]
-        total_price = price * amount
-        temp_list = [amount, name, total_price]
-        order_list.append(temp_list)
-        review_order(order_list)
-        print("-" * 50)
-        if get_confirmation() is False:
-            return None
-        # do you want to order again
-        # if not return None
 
 def get_confirmation(m = "Do you want to continue on this menu (C) or return back the main menu (R)"):
+    # do you want to order again
+    # if not return None
     response = input(m)
+    print("_" * 50)
     while response not in ["C", "R"]:
         print("This is not a recognised entry")
         return False
@@ -57,6 +56,76 @@ def get_confirmation(m = "Do you want to continue on this menu (C) or return bac
         return True
     else:
         return False
+
+def order(m, o_list):
+    order_loop = True
+    while order_loop is True:
+        if get_confirmation() is False:
+            review_total_order(o_list)
+            return None
+        print_with_price(m)
+        print("_" * 50)
+        dish = get_integer("Enter the number of the dish you would like to order ---> ")
+        name = m[dish][0]
+        amount = get_integer("How many would you like ---> ")
+        price = m[dish][1]
+        total_price = price * amount
+        temp_list = [amount, name, total_price]
+        o_list.append(temp_list)
+        print("_" * 50)
+        review_order(temp_list)
+        print("_" * 50)
+
+def edit_order(o_list):
+    edit_order_loop = True
+    while edit_order_loop is True:
+        print_order_with_indexes(o_list)
+        print("_" * 50)
+        my_index = get_integer("Please enter the number of the dish you would like to edit / remove")
+        name = o_list[my_index][1]
+        new_amount = get_integer("How many {} do you want now? If you would like to remove this dish, please enter 0".format(o_list[my_index][1]))
+        old_amount = o_list[my_index][0]
+        if new_amount == 0:
+            o_list.pop(my_index)
+            print("_" * 50)
+            print("{} is no longer apart of your order".format(name))
+            print("_" * 50)
+            edit_order_loop = False
+        elif new_amount > 0:
+            o_list[my_index][0] = new_amount
+            new_price = new_amount*o_list[my_index][2]
+            o_list[my_index][2] = new_price
+            print("_" * 50)
+            print("you now have {} {} instead of {} {}".format(new_amount, o_list[my_index][1], old_amount, o_list[my_index][1]))
+            print("_" * 50)
+            review_total_order(o_list)
+            print("_" * 50)
+            edit_order_loop = False
+        else:
+            print("invalid entry, try again")
+
+def pick_up_or_drop_off(c_list, o_list):
+    PDLoop = True
+    while PDLoop is True:
+        customer_name = get_string("Please enter your name for this order: ")
+        recieving_food = get_string("{} would you like (P)ickup or (D)elivery?".format(customer_name))
+        time = len(o_list)*20
+        if recieving_food == "D":
+            address = get_string("Please enter your street address to deliver to: ")
+            temp_customerP = [customer_name, address, recieving_food]
+            c_list.append(temp_customerP)
+            print_list(c_list)
+            PDLoop = False
+        elif recieving_food == "P":
+            print("_" * 50)
+            print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} mins".format(customer_name, time))
+            print("_" * 50)
+            temp_customerD = [customer_name, recieving_food]
+            c_list.append(temp_customerD)
+            print_list(c_list)
+            PDLoop = False
+        else:
+            print("invalid entry, try again")
 
 def get_order_menu():
     pasta_menu = [
@@ -99,60 +168,83 @@ def get_order_menu():
     ]
 
     print_with_indexes(food_menu)
-    print("-" * 50)
 
     # CHOOSE WHICH MENU YOU WANT
+    print("_" * 50)
     choose_menu = get_integer("Select the number of the menu you would like to print ---> ")
     if choose_menu == 0:
-        print("-" * 50)
+
         return pasta_menu
     elif choose_menu == 1:
-        print("-" * 50)
+
         return vegan_menu
     elif choose_menu == 2:
-        print("-" * 50)
+
         return antipasto_menu
     elif choose_menu == 3:
-        print("-" * 50)
+
         return desserts_menu
     else:
-        print("-" * 25)
+        print("_" * 50)
         print("Invalid entry, try again")
-        print("-" * 50)
+        print("_" * 50)
+
 
 def main():
     menu_list = [
-        ["P", "Print menu"],
-        ["O", "Order"],
-        ["Q", "Quit"]
-    ]
+            ["P", "Print menu"],
+            ["O", "Order"],
+            ["E", "Edit Order"],
+            ["R", "Review Order"],
+            ["Q", "Quit"]
+        ]
+
+    order_list = []
+
+    customer_list = []
 
 #  MENU LOOP
     menu_loop = True
     while menu_loop is True:
-        print("-" * 50)
+
         print_list(menu_list)
-        print("-" * 50)
+        print("_"*50)
+
         # CHOOSE MENU OPTION : PRINT OR QUIT
         user_choice = get_string("Please select an option from the menu above --> ")
-        print("-" * 50)
+        print("_" * 50)
+
         # CHOICE P
         if user_choice == "P":
             menu = get_order_menu()
+            print("_" * 50)
             print_with_price(menu)
+            print("_" * 50)
         # CHOICE O
         elif user_choice == "O":
             menu = get_order_menu()
-            order(menu)
+            print("_" * 50)
+            order(menu, order_list)
+            print("_" * 50)
+            pick_up_or_drop_off(customer_list, order_list)
+            print("_" * 50)
+        #CHOICE E
+        elif user_choice == "E":
+            edit_order(order_list)
+            print("_" * 50)
         # CHOICE Q
+        elif user_choice == "R":
+            review_total_order(order_list)
+            print("_" * 50)
+
         elif user_choice == "Q":
             menu_loop = False
             print("Thank you for your time")
+            print("_" * 50)
 
         else:
-            print("-" * 25)
             print("Invalid entry, try again")
-            print("-" * 50)
+            print("_" * 50)
 
 
 if __name__ == "__main__":
