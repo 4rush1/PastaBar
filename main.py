@@ -95,27 +95,33 @@ def edit_order(o_list):
         print("invalid entry, try again")
 
 
-def pick_up_or_drop_off(c_list, o_list):
-    if len(c_list) == 0:
-        customer_name = get_string("Please enter your name for this order: ")
-        recieving_food = get_string("{} would you like (P)ickup or (D)elivery?".format(customer_name))
-        customer_phone = get_integer("Please enter your phone number: ")
-        time = len(o_list)*20
-        if recieving_food == "D":
-            address = get_string("Please enter your street address to deliver to: ")
-            print("_" * 50)
-            temp_P = [customer_name, address, customer_phone]
-            c_list.append(temp_P)
-            print(c_list)
-        elif recieving_food == "P":
-            print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} mins".format(customer_name, time))
-            print("_" * 50)
-            temp_D = [customer_name, customer_phone]
-            c_list.append(temp_D)
-            print(c_list)
-    elif len(c_list) == 0:
-        print("We already have your details")
-        return False
+def customer_details(c_list, o_list):
+    if len(c_list) > 0:
+        re_enter = get_string("We already have your details, do you want to update them? (Y/N)")
+        if re_enter == "Y":
+            c_list.clear()
+        elif re_enter == "N":
+            return None
+        else:
+            print("invalid entry, try again")
+
+    customer_name = get_string("Please enter your name for this order: ")
+    recieving_food = get_string("{} would you like (P)ickup or (D)elivery?".format(customer_name))
+    customer_phone = get_integer("Please enter your phone number: ")
+    time = len(o_list) * 20
+    if recieving_food == "D":
+        address = get_string("Please enter your street address to deliver to: ")
+        print("_" * 50)
+        temp_P = [customer_name, address, customer_phone]
+        c_list.append(temp_P)
+        print(c_list)
+    elif recieving_food == "P":
+        print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} mins".format(customer_name,
+                                                                                                       time))
+        print("_" * 50)
+        temp_D = [customer_name, customer_phone]
+        c_list.append(temp_D)
+        print(c_list)
 
 def get_order_menu():
     pasta_menu = [
@@ -238,7 +244,7 @@ def main():
 
         elif user_choice == "C":
             if len(order_list) > 0:
-                pick_up_or_drop_off(customer_list, order_list)
+                customer_details(customer_list, order_list)
                 print("_" * 50)
             else:
                 print("you havent ordered anything yet, please order first")

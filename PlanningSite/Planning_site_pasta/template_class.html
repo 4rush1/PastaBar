@@ -33,10 +33,6 @@
 				</ul>
 			</div>
 			<div class="content">
-
-                
-
-			
                     
 					<h1>Brief</h1>
 					<p>I am coding an interactive menu / ordering system for a pasta bar which allows the user to view the menu's, 
@@ -46,7 +42,9 @@
 					<hr>
 
     <!-- Heading levels -->
-    <h1>Version One</h1>
+    <h1>Sprint One</h1>
+				<h2>Sprint 1 Brief: In this Sprint I will be collecting my menu's / lists and
+				alow the user to choose a menu they want to print, or to quit </h2>
 <h2>Github</h2>
 <img class="img-responsive" src="assets/img/Sprint1_backlog.png" alt="">
 <br>
@@ -62,20 +60,25 @@
  <img class="img-responsive" src="assets/img/test3.png" alt="">
  <br>
  <h2>Reflection</h2>
- <p>In the version I allow the user to choose whether they wan tto print or quit, if they choose to print, then they can choose
+ <p>In the sprint I allow the user to choose whether they want to print or quit, if they choose to print, then they can choose
 	 which menu to print. Before they choose which menu to print a "list" of menu options with numbers (e.g pasta, vegan, dessert) appears
 	 and from there they can select the NUMBER of the menu they would like to print. All of this works fine, however, the one thing that 
-	 doesnt work properly is the quit option. For some unknow reason, sometimes it work and the program stops, and other times the loop will 
-	 keep going. I am not sure why and am still trying to figure this out. In my next version this will be fixed and I also plan to give the 
-	 user the option to order in Version 2, as well as validate. Before I a loop inside of my menu_loop, which I found out was uneccessary 
-	 and was actually confsuing the program. Therefore I got rid of this loop, I also decided to change options : "A" and "B", to "P" 
+	 doesnt work properly is the quit option. For some unknown reason, sometimes it work and the program stops, and other times the loop will
+	 keep going. I am not sure why and am still trying to figure this out. In my next Sprint this will be fixed and I also plan to give the
+	 user the option to order in Sprint 2, as well as validate. Before I a loop inside of my menu_loop, which I found out was uneccessary
+	 and was actually confusing the program. Therefore, I got rid of this loop, I also decided to change options : "A" and "B", to "P"
 	 (for print) and "Q" (for quit). After realising that I had lots of loops for no reason (e.g for i in range loop and True / False loop) I got 
-	 rid of these unessessary loops and their indintation which finally allowed my quit button to work.
+	 rid of these unessessary loops and their indentation which finally allowed my quit button to work.
  </p>
  <img class="img-responsive" src="assets/img/successfulTest.png" alt="">
  
 <hr>
-<h1>Version Two</h1>
+<h1>Sprint Two</h1>
+				<h2>Sprint 2 Brief: In this version I will be making my ordering function, the user will be
+				able to choose what menu they want to order from, once they choose what dish they want, it asks
+				them how many they want and calculates the price by multiplying the amount by the price.
+				I will also make an option so that they can choose of they want to continue on that same menu
+				or go back to main menu</h2>
 <h2>Github</h2>
 <img class="img-responsive" src="assets/img/Sprint2Backlog.png" alt="">
 <br>
@@ -92,7 +95,7 @@
  <h3>This is the outcome for that code</h3>
  <img class="img-responsive" src="assets/img/V2-problem1.png" alt="">
  <br>
- <h3>This is the code once the problem was fixed</h3>
+ <h3>This is the code once the problem was fixed, but it still needs to be further improved in future sprints</h3>
  <img class="img-responsive" src="assets/img/V2_problem_fixed.png" alt="">
  <br>
  <h3>This is the outcome of that code</h3>
@@ -107,33 +110,37 @@
  <h1>Reflection</h1>
  <p>In this sprint I added the 'order' option. I feel like my ordering system is quite chaotic and
 	 because there are quite a few functions and in some of these functions its hard to access certain
-	things. In Sprint 3 I'm going to tidy things up more and add validation. In this version I 
+	things. In Sprint 3 I'm going to tidy things up. In this Sprint I
 	encountered a few problems. Number 1: as you can see above when I made my confirmation function,
 	I forgot to added 'return False' for an unrecognized entry, this caused the 'unrecognized entry' 
 	to repeat. Luckily I realised my mistake and was able to fix it (as you can see in the last photo.
-	Problem 2: there are many major validation issues in my program that cuase the program to crash as
+	Problem 2: there are many major validation issues in my program that cause the program to crash as
 	you can see above. For that issue, the user entered an index number which was not in the list, this
 	can be be fixed with validation based on the length of the list in Sprint 3. Other validation issues 
 	I will fix with be based on capitalisation of string input as well as min and max values for the 
 	amount someone can order.
 </p>
 
-<h1>Version Three</h1>
-<p>Plan with data types and restrictions on data input</p>
-<p>Link to data base</p>
-<p> Query examples with tables as examples of how the data would be presented</p>
- <p>Reflection (+ anything about relevant implications)</p>
-<hr>
+<h1>Sprint Three</h1>
+<h1>Sprint Two</h1>
+				<h2>Sprint 3 Brief: In this sprint I </h2>
+<h2>Github</h2>
+<img class="img-responsive" src="assets/img/Sprint2Backlog.png" alt="">
+<br>
+<h2>Code plan on paper</h2>
+<img class="img-responsive" src="assets/img/Sprint2paper_plan.jpg" alt="">
+<br>
+<h2>Tests</h2>
+
+ <br>
+ <h1>Reflection</h1>
+ <p>
+
+</p>
+
+<h2>Final Reflection</h2>
 <h1> Relevant Implications Summary</h1>
  <hr>
- <hr>
-
-
-
-    <!-- Paragraphs -->
-    <h3>Example of formatted code</h3>
-	
-                
 
 
 <pre style="font-size: 1.5em;">
@@ -149,31 +156,6 @@ def review_fruit(l):
 
   <h3>Table in case you need</h3>              
 <table class="my-table"><tr><th>Tracks</th><th>Album</th><th>Artist</th></tr><tr><td>Rosalyn</td><td>Night moves</td><td>Bob Seger</td></tr><tr><td>Rock n' Roll Music</td><td>Rock n' Roll Music</td><td>The Beatles</td></tr><tr><td>Roll Over Beethoven</td><td>Rock n' Roll Music</td><td>The Beatles</td></tr><tr><td>Right Down The Lane</td><td>City to City</td><td>Gerry Rafferty</td></tr><tr><td>Ramblin Man</td><td>Brothers and Sister</td><td>The Allman Brothers Band</td></tr><tr><td>Rocket Man (I think it's going to be a long, long time)</td><td>Honky Chateau</td><td>Elton John</td></tr></table>
-                
-            <hr>     
-                
-                <h3>Example paragraph</h3>
-					<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-					<hr>
-
-					<!-- Responsive images -->
-					<h3>Example image placements</h3>
-					<p>For images to be responsive (so that they will rescale to suit the width of the parent, use the <code>.img-responsive</code> class.</p>
-					<img class="img-responsive" src="assets/img/place_holder.png" alt="">
-                <hr>
-                <div class="col-container">
-                <div class="col">
-               <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation ullamcorper</a> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel.</p>
-                </div>
-                 <div class="col">
-                <img class="img-responsive" src="assets/img/place_holder_sm.jpg" alt="">
-                <p>Ut wisi enim ad minim veniam, <a href="#">quis nostrud exerci tation ullamcorper</a> suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel.</p>
-                </div>
-                </div>
-                <hr>
-               
-              
 
 					<!-- Lists -->
 					<h3>Unordered list</h3>
