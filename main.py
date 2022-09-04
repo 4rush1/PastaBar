@@ -3,8 +3,13 @@ def get_integer(l):
     my_integer = int(input(l))
     return my_integer
 
-def get_string(l):
-    my_string = input(l)
+def get_string(m):
+    """Get a validated string from user input.
+
+    :param m: string
+    :return: string
+    """
+    my_string = input(m)
     return my_string
 
 # REVIEW LISTS
@@ -23,7 +28,7 @@ def print_with_indexes(l):
 
 def print_order_with_indexes(l):
     for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
-        print("{} : {} {}".format(i, l[i][0], l[i][1]))
+        print("{} : {} {} ${}".format(i, l[i][0], l[i][1], l[i][2]))
 
 #def review_total_order_grand(o_list):
     #for i in range(0, len(o_list)):
@@ -32,7 +37,6 @@ def print_order_with_indexes(l):
 
 def review_total_order(l):
     for i in range(0, len(l)):
-
         output = "You have ordered {} {} for ${:.2f}".format(l[i][0], l[i][1], l[i][2])
         print(output)
 
@@ -51,7 +55,7 @@ def get_confirmation(m = "Do you want to proceed (C) or return to the main menu 
         return False
     if response == "C":
         return True
-    else:
+    elif response == "R":
         return False
 
 # ORDERING
@@ -73,11 +77,17 @@ def order(m, o_list):
         review_order(temp_list)
         print("_" * 50)
 
-def edit_order(o_list):
+def edit_order(o_list,p):
+    """ change the quantity of pasta, we can delete
+
+    :param o_list: list (quantity,name , cost(complete))
+    :return:
+    """
     print_order_with_indexes(o_list)
     print("_" * 50)
     my_index = get_integer("Please enter the number of the dish you would like to edit / remove")
     name = o_list[my_index][1]
+    single_price= o_list[my_index][2]/o_list[my_index][0]
     new_amount = get_integer("How many {} do you want now? If you would like to remove this dish, please enter 0".format(o_list[my_index][1]))
     print("_" * 50)
     old_amount = o_list[my_index][0]
@@ -87,15 +97,22 @@ def edit_order(o_list):
         print("_" * 50)
     elif new_amount > 0:
         o_list[my_index][0] = new_amount
-        new_price = new_amount*o_list[my_index][2]
+        new_price = new_amount*single_price
         o_list[my_index][2] = new_price
-        print("you now have {} {} instead of {} {}".format(new_amount, o_list[my_index][1], old_amount, o_list[my_index][1]))
+        grand_total_calc(o_list, p)
+        print("you now have {} {} instead of {} {}, this costs ${:.2f}".format(new_amount, o_list[my_index][1], old_amount, o_list[my_index][1], new_price))
         print("_" * 50)
     else:
         print("invalid entry, try again")
 
 
 def customer_details(c_list, o_list):
+    """Get name phone from customer, find if delivery oor pickup, if so get address.
+
+    :param c_list: list (customer details)
+    :param o_list: list (2D ordered items)
+    :return: None
+    """
     if len(c_list) > 0:
         re_enter = get_string("We already have your details, do you want to update them? (Y/N)")
         if re_enter == "Y":
@@ -112,16 +129,43 @@ def customer_details(c_list, o_list):
     if recieving_food == "D":
         address = get_string("Please enter your street address to deliver to: ")
         print("_" * 50)
-        temp_P = [customer_name, address, customer_phone]
-        c_list.append(temp_P)
-        print(c_list)
-    elif recieving_food == "P":
-        print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} mins".format(customer_name,
-                                                                                                       time))
-        print("_" * 50)
-        temp_D = [customer_name, customer_phone]
+        temp_D = [customer_name, address, customer_phone]
         c_list.append(temp_D)
         print(c_list)
+    elif recieving_food == "P":
+        print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} minsO".format(customer_name,time))
+        print("_" * 50)
+        temp_P = [customer_name, customer_phone]
+        c_list.append(temp_P)
+        print(c_list)
+
+def grand_total_calc(o_list,p):
+    """Here I am trying to calculate the grand total
+    :param o_list: list (order list)
+    :param p: list (list of prices)
+    :return:
+    """
+    p.clear()
+    for i in range(0, len(o_list)):
+        #creating price list
+        p.append(o_list[i][2])
+        grand_total = sum(p)
+    print(p)
+    print(grand_total)
+
+def grand_total(o_list,p):
+    """Here I am calculating and printing the grand total formatted
+    :param o_list: list (order list)
+    :param p: list (list of prices)
+    :return:
+    """
+    for i in range(0, len(o_list)):
+        #creating price list
+        p.append(o_list[i][2])
+        grand_total = sum(p)
+    print(p)
+    print("your grand total is: ${:.2f}".format(grand_total))
+    return None
 
 def get_order_menu():
     pasta_menu = [
@@ -199,6 +243,8 @@ def main():
 
     customer_list = []
 
+    price_list = []
+
 #  MENU LOOP
     menu_loop = True
     while menu_loop is True:
@@ -227,7 +273,7 @@ def main():
         #CHOICE E
         elif user_choice == "E":
             if len(order_list) > 0:
-                edit_order(order_list)
+                edit_order(order_list, price_list)
                 print("_" * 50)
             else:
                 print("you havent ordered anything yet, please order first")
@@ -237,17 +283,14 @@ def main():
         elif user_choice == "R":
             if len(order_list) > 0:
                 review_total_order(order_list)
+                grand_total_calc(order_list, price_list)
                 print("_" * 50)
             else:
                 print("you havent ordered anything yet, please order first")
                 print("_" * 50)
 
         elif user_choice == "C":
-            if len(order_list) > 0:
                 customer_details(customer_list, order_list)
-                print("_" * 50)
-            else:
-                print("you havent ordered anything yet, please order first")
                 print("_" * 50)
 
         elif user_choice == "Q":
