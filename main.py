@@ -1,12 +1,17 @@
 # INPUTS
-def get_integer(l):
-    my_integer = int(input(l))
+def get_integer(m):
+    """
+    This function allows the user to enter integer input, and not string
+    :param m: integer input
+    :return: integer
+    """
+    my_integer = int(input(m))
     return my_integer
 
 def get_string(m):
     """Get a validated string from user input.
 
-    :param m: string
+    :param m: string input
     :return: string
     """
     my_string = input(m)
@@ -14,33 +19,63 @@ def get_string(m):
 
 # REVIEW LISTS
 def print_list(l):
+    """
+    This function is to tidely print 2 corresponding items in a list
+    :param l: any list
+    :return: output??
+    """
     for i in range(0, len(l)):
         output = "{:10} {:10}".format(l[i][0], l[i][1])
         print(output)
 
 def print_with_price(l):
+    """
+    this function is to print the index number, the dish and the price
+    :param l: any list, often order list
+    :return:
+    """
     for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
         print("{} : {:<30} ${:.2f}".format(i, l[i][0], l[i][1]))
 
 def print_with_indexes(l):
+    """
+    This function is supposed to print 1 item in a list, along with an index number
+    :param l: any list
+    :return:
+    """
     for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
         print("{} : {}".format(i, l[i][0]))
 
 def print_order_with_indexes(l):
+    """
+    This is a print function, specifically meant for printing a dish / order, its amount and it's price with an index number
+    :param l: order_list
+    :return:
+    """
     for i in range(0, len(l)):  # guarentees we go the the end of the list and no further
         print("{} : {} {} ${}".format(i, l[i][0], l[i][1], l[i][2]))
 
-#def review_total_order_grand(o_list):
-    #for i in range(0, len(o_list)):
-    #    grand_total = sum(o_list[i][2])
-   #     print("your total bill is {:.2f}".format(grand_total))
+def review_order(l):
+    """
+    This function is supposed to bring 1 item in the order list
+    :param l: order_list
+    :return:
+    """
+    output = "You have ordered {} {} for ${:.2f}".format(l[0], l[1], l[2])
+    print(output)
 
 def review_total_order(o_list, p, c_list):
+    """
+    This function is supposed to print the whole order list, as well as the grand total
+    :param o_list:
+    :param p:
+    :param c_list:
+    :return:
+    """
     for i in range(0, len(o_list)):
         output = "You have ordered {} {} for ${:.2f}".format(o_list[i][0], o_list[i][1], o_list[i][2])
         print(output)
     grand_total_calc(o_list, p, c_list)
-
 
 def grand_total_calc(o_list,p, c_list):
     """Here I am trying to calculate the grand total
@@ -63,12 +98,13 @@ def grand_total_calc(o_list,p, c_list):
     print(p)
     print(grand_total)
 
-def review_order(l):
-    output = "You have ordered {} {} for ${:.2f}".format(l[0], l[1], l[2])
-    print(output)
-
 # CONFIRMATION
 def stay_or_return(m = "Do you want to (C)ontinue on this menu or (R)eturn to the main menu"):
+    """
+    I am trying to confirm whether the user wants to stay on the list that they are curerntly on, or go back to the main menu
+    :param m: string message
+    :return:
+    """
     # do you want to order again
     # if not return None
     # running the loop
@@ -84,6 +120,15 @@ def stay_or_return(m = "Do you want to (C)ontinue on this menu or (R)eturn to th
             return False
 
 def confirm_order(c_o, o_list, p, c_list, m="Do you confirm this order (Y/N)"):
+    """
+    function for user to confirm if their order is correct
+    :param c_o: confirm_o_list
+    :param o_list: order_list
+    :param p: price_list
+    :param c_list: customer_list
+    :param m: string message
+    :return:
+    """
     # do you want to order again
     # if not return None
     c_o.clear()
@@ -100,6 +145,14 @@ def confirm_order(c_o, o_list, p, c_list, m="Do you confirm this order (Y/N)"):
     return None
 
 def confirm_customer(c_c, o_list, c_list, m="Do you confirm your details (Y/N)"):
+    """
+    Confirm if their customer details are correct
+    :param c_c: confirm_c_list
+    :param o_list: order_list
+    :param c_list: customer_list
+    :param m: string message
+    :return:
+    """
     # do you want to order again
     # if not return None
     c_c.clear()
@@ -115,6 +168,12 @@ def confirm_customer(c_c, o_list, c_list, m="Do you confirm your details (Y/N)")
 
 # ORDERING
 def order(m, o_list):
+    """
+    User selects the list they want to order from, selects dish, the amount of the dish, and places an order
+    :param m: string message
+    :param o_list: order_list
+    :return:
+    """
     order_loop = True
     while order_loop is True:
         print_with_price(m)
@@ -133,9 +192,11 @@ def order(m, o_list):
         print("_" * 50)
 
 def edit_order(o_list,p, c_list):
-    """ change the quantity of pasta, we can delete
-
-    :param o_list: list (quantity,name , cost(complete))
+    """
+    change the quantity of pasta, we can delete
+    :param o_list: order_list
+    :param p: price_list
+    :param c_list: customer_list
     :return:
     """
     print_order_with_indexes(o_list)
@@ -160,6 +221,7 @@ def edit_order(o_list,p, c_list):
     else:
         print("invalid entry, try again")
 
+#Customer Details
 def customer_details(c_list, o_list):
     """Get name phone from customer, find if delivery oor pickup, if so get address.
 
@@ -192,7 +254,17 @@ def customer_details(c_list, o_list):
         c_list.append(temp_P)
     print(c_list)
 
+#User finishing their order
 def finishing_order(c_list, o_list, p, c_o, c_c):
+    """
+    Finish ordering, enter final or last details that they forgot to enter before, confirm orders and details, clear list and start over
+    :param c_list: customer_list
+    :param o_list: order_list
+    :param p: price_list
+    :param c_o: confirm_o_list
+    :param c_c: confirm_c_list
+    :return:
+    """
     if len(c_list) == 0 and len(o_list)== 0:
         print("You haven't ordered anything or entered your customer details, please order first. If you want to quit enter 'Q' on the main menu")
         print("_" * 50)
@@ -220,6 +292,10 @@ def finishing_order(c_list, o_list, p, c_o, c_c):
     c_c.clear()
 
 def get_order_menu():
+    """
+    lists of pasta menu, divided into food categories, e.g vegan, desserts. User is also able to choose the menu they want to print / order from
+    :return:
+    """
     pasta_menu = [
         ["Linguine Gamberi", 23],
         ["Fusilli Pesto", 19],
@@ -282,6 +358,10 @@ def get_order_menu():
 
 
 def main():
+    """
+    the main code area, where the user chooses their actions from the main menu (e.g order) and the program carries out those actiomns through functions
+    :return:
+    """
     menu_list = [
             ["P", "Print menu"],
             ["O", "Order"],
