@@ -52,8 +52,6 @@ def grand_total_calc(o_list,p, c_list):
     # clear put and put in all prices again
     # avoids double ups
     p.clear()
-    print(o_list)
-    print(c_list)
     for i in range(0, len(c_list)):
         if "D" in c_list[i]:
             p.append(3)
@@ -89,6 +87,7 @@ def confirm_order(c_o, o_list, p, c_list, m="Do you confirm this order (Y/N)"):
     # do you want to order again
     # if not return None
     c_o.clear()
+    print(o_list)
     response = get_string(m)
     print("_" * 50)
     if response == "Y":
@@ -100,17 +99,18 @@ def confirm_order(c_o, o_list, p, c_list, m="Do you confirm this order (Y/N)"):
             edit_order(o_list,p, c_list)
     return None
 
-def confirm_customer(c_c, o_list, p, c_list, m="Do you confirm your details (Y/N)"):
+def confirm_customer(c_c, o_list, c_list, m="Do you confirm your details (Y/N)"):
     # do you want to order again
     # if not return None
     c_c.clear()
+    print(c_list)
     response = get_string(m)
     print("_" * 50)
     if response == "Y":
         c_c.append("Y")
     elif response == "N":
         c_c.append("N")
-        customer_details(c_list, o_list,p, c_c)
+        customer_details(c_list, o_list)
     return None
 
 # ORDERING
@@ -160,7 +160,7 @@ def edit_order(o_list,p, c_list):
     else:
         print("invalid entry, try again")
 
-def customer_details(c_list, o_list, p, c_c):
+def customer_details(c_list, o_list):
     """Get name phone from customer, find if delivery oor pickup, if so get address.
 
     :param c_list: list (customer details)
@@ -191,8 +191,33 @@ def customer_details(c_list, o_list, p, c_c):
         temp_P = [customer_name, customer_phone, recieving_food]
         c_list.append(temp_P)
     print(c_list)
-    confirm_customer(c_c, o_list, p, c_list)
 
+def finishing_order(c_list, o_list, p, c_o, c_c):
+    if len(c_list) == 0 and len(o_list)== 0:
+        print("You haven't ordered anything or entered your customer details, please order first. If you want to quit enter 'Q' on the main menu")
+        print("_" * 50)
+        return None
+    elif len(o_list) == 0:
+        print("You haven't ordered anything yet, please order first or if you want to quit enter 'Q' on the main menu")
+        print("_" * 50)
+        return None
+    elif len(c_list) == 0:
+        customer_details(c_list, o_list)
+        print("_" * 50)
+
+    review_total_order(o_list, p, c_list)
+    print("_" * 50)
+    confirm_order(c_o, o_list, p, c_list)
+    print("_" * 50)
+    confirm_customer(c_c, o_list, p, c_list)
+    print("_" * 50)
+
+    print("We are finishing you order now")
+    c_list.clear()
+    o_list.clear()
+    p.clear()
+    c_o.clear()
+    c_c.clear()
 
 def get_order_menu():
     pasta_menu = [
@@ -263,6 +288,7 @@ def main():
             ["E", "Edit Order"],
             ["R", "Review Order"],
             ["C", "Customer Details"],
+            ["F", "Finish ordering"],
             ["Q", "Quit"]
         ]
 
@@ -309,19 +335,20 @@ def main():
                 print("you havent ordered anything yet, please order first")
                 print("_" * 50)
 
-        # CHOICE Q
         elif user_choice == "R":
             if len(order_list) > 0:
                 review_total_order(order_list, price_list, customer_list)
                 print("_" * 50)
-                confirm_order(confirm_o_list, order_list, price_list, customer_list)
             else:
                 print("you havent ordered anything yet, please order first")
                 print("_" * 50)
 
         elif user_choice == "C":
-                customer_details(customer_list, order_list, price_list, confirm_c_list)
+                customer_details(customer_list, order_list)
                 print("_" * 50)
+
+        elif user_choice == "F":
+            finishing_order(customer_list, order_list, price_list, confirm_o_list, confirm_c_list)
 
         elif user_choice == "Q":
             menu_loop = False
