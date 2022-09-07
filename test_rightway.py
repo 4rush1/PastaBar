@@ -40,6 +40,8 @@ def get_confirmation_customer_details(m = "We already have your details, do you 
     elif response == "R":
         return None
 
+
+
 #def my_grand_total(l):
     #for i in range(0, len(l)):
        # grand_total = sum(l[i][1])
@@ -59,20 +61,43 @@ def review_total_order(l, p):
     #grand_total = sum(p)
     #print(grand_total)
 
-    grand_total(l, p)
-
-def grand_total(l,p):
+def grand_total(l,p, c_list):
     """Here I am trying to calculate the grand total
     :param l: list (order list)
     :param p: list (list of prices)
     :return:
     """
+    print("clear")
+    p.clear()
+    print(p)
+    for x in range(0, len(c_list)):
+        if c_list[x][3] == "D":
+            print("add 3")
+            p.append(3)
+            print(p)
+            print("total list")
     for i in range(0, len(l)):
         #creating price list
         p.append(l[i][2])
         grand_total = sum(p)
-    print(grand_total)
     print(p)
+    print(grand_total)
+
+def confirm(c, o_list, m = "Do you confirm this order (Y/N)"):
+    # do you want to order again
+    # if not return None
+    response = get_string(m)
+    print("_" * 50)
+    if response == "Y":
+        c.append("Y")
+        return False
+    elif response == "N":
+        c.append("N")
+        edit = get_string("Do you want to edit your order (Y/N)? ")
+        if edit =="Y":
+            edit_order(o_list)
+        elif edit =="N":
+            return False
 
 def customer_details(c_list, o_list, p):
     """Get name phone from customer, find if delivery oor pickup, if so get address.
@@ -97,7 +122,7 @@ def customer_details(c_list, o_list, p):
     if recieving_food == "D":
         address = get_string("Please enter your street address to deliver to: ")
         print("_" * 50)
-        temp_D = [customer_name, address, customer_phone]
+        temp_D = [customer_name, address, customer_phone, recieving_food]
         c_list.append(temp_D)
         print(c_list)
         p.append(3)
@@ -107,7 +132,7 @@ def customer_details(c_list, o_list, p):
         time = len(o_list) * 20
         print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} mins".format(customer_name,time))
         print("_" * 50)
-        temp_P = [customer_name, customer_phone]
+        temp_P = [customer_name, customer_phone, recieving_food]
         c_list.append(temp_P)
 
     print(c_list)
@@ -139,9 +164,13 @@ def main():
         ["food2", 40, 80]
     ]
 
-    price_list = []
+    price_list = [3, 4, 5, 6]
 
-    customer_list = []
+    customer_list = [
+        ["Dave", "34A Dave Street", "23456543234567", "D"]
+    ]
+
+    confirm_list = []
 
     #pick_up_or_drop_off(customer_list, order_list)
 
@@ -149,8 +178,11 @@ def main():
     #print(name)
 
     #review_total_order(list1, price_list)
-    customer_details(customer_list, list1, price_list)
+    #customer_details(customer_list, list1, price_list)
     #grand_total(list1, price_list, customer_list)
+
+    confirm(confirm_list, list1)
+
 
 main()
 
