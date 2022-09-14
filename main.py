@@ -5,6 +5,7 @@ def get_integer(m):
     :param m: integer input
     :return: integer
     """
+
     my_integer = int(input(m))
     return my_integer
 
@@ -15,7 +16,7 @@ def get_string(m):
     :return: string
     """
     my_string = input(m)
-    return my_string
+    return my_string.upper().strip()
 
 # REVIEW LISTS
 def print_list(l):
@@ -75,7 +76,8 @@ def review_total_order(o_list, p, c_list):
     for i in range(0, len(o_list)):
         output = "You have ordered {} {} for ${:.2f}".format(o_list[i][0], o_list[i][1], o_list[i][2])
         print(output)
-    grand_total_calc(o_list, p, c_list)
+    print( "your grand total: ${}".format( grand_total_calc(o_list, p, c_list) ) )
+
 
 def grand_total_calc(o_list,p, c_list):
     """Here I am trying to calculate the grand total
@@ -94,9 +96,9 @@ def grand_total_calc(o_list,p, c_list):
     for j in range(0, len(o_list)):
         # creating price list
         p.append(o_list[j][2])
-        grand_total = sum(p)
-    print(p)
-    print(grand_total)
+    grand_total = sum(p)
+    return grand_total
+
 
 # CONFIRMATION
 def stay_or_return(m = "Do you want to (C)ontinue on this menu or (R)eturn to the main menu"):
@@ -110,7 +112,7 @@ def stay_or_return(m = "Do you want to (C)ontinue on this menu or (R)eturn to th
     # running the loop
     getting_response = True
     while getting_response is True:
-        response = get_string(m).upper().strip()
+        response = get_string(m)
         if response not in ["C", "R"]:
             print("invalid entry, try again")
             continue
@@ -221,7 +223,7 @@ def edit_order(o_list,p, c_list):
     else:
         print("invalid entry, try again")
 
-#Customer Details
+#CUSTOMER DETAILS
 def customer_details(c_list, o_list):
     """Get name phone from customer, find if delivery oor pickup, if so get address.
 
@@ -277,19 +279,22 @@ def finishing_order(c_list, o_list, p, c_o, c_c):
         customer_details(c_list, o_list)
         print("_" * 50)
 
+    print("calling review")
     review_total_order(o_list, p, c_list)
     print("_" * 50)
+    print("calling confirm order")
     confirm_order(c_o, o_list, p, c_list)
     print("_" * 50)
-    confirm_customer(c_c, o_list, p, c_list)
+    print("calling confirm customer")
+    confirm_customer(c_c, o_list, c_list)
     print("_" * 50)
-
     print("We are finishing you order now")
-    c_list.clear()
-    o_list.clear()
-    p.clear()
-    c_o.clear()
-    c_c.clear()
+
+    #c_list.clear()
+    #o_list.clear()
+    #p.clear()
+    #c_o.clear()
+    #c_c.clear()
 
 def get_order_menu():
     """
@@ -373,8 +378,10 @@ def main():
         ]
 
     order_list = []
+    order_list = [[1, 'Fusilli Pesto', 19]]
 
     customer_list = []
+    customer_list=[['PAUL', 223837638, 'P']]
 
     price_list = []
 

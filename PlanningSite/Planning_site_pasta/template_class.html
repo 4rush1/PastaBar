@@ -162,7 +162,10 @@
 <hr>
 <br>
 <h2>Code plan on paper</h2>
-<img class="img-responsive" src="assets/img/SPRINT3/" alt="">
+<img class="img-responsive" src="assets/img/SPRINT3/PAPERPLAN2.jpg" alt="">
+<img class="img-responsive" src="assets/img/SPRINT3/PAPERPLAN1.jpg" alt="">
+<img class="img-responsive" src="assets/img/SPRINT3/PAPERPLAN3.jpg" alt="">
+<img class="img-responsive" src="assets/img/SPRINT3/PAPERPLAN4.jpg" alt="">
 <hr>
 <br>
 <h2>Tests</h2>
@@ -291,17 +294,17 @@
 	 to find a way to correctly update the prices when a user edit's their order. I realised that I was mutiplying the new 
 	 amount (of the dish) by the old total price rather than the original price of the dish, this is something I will try 
 	 fix in sprint 4. I also need to make a function to confirm the user's order, add a $3 DELIVERY CHARGE in the customer 
-	 details function and find out how to calculate the grand total in the review order function. Theses were things I forgot 
-	 to do in sprint 3. In terms of validation I need basic string validation, which is, converting string input into upper 
-	 case. I also need integer limits for lists, phone number integer limits, address character requiremnets / limits as well 
-	 as a limit on the amount of a dish that you can order. Most importantly I need to add validation which doesnt let the user 
-	 quit the program until they have entered they're customer details. Another thing I need to figure out and improve on is 
-	 the format of my program, I am planning to print the order in the customer details function. I might also make a "confirm
-	customer details" fucntion. I also need to decide when to ask the user to confirm their order, I dont know whether I 
-	should confirm their order once they press "quit" or if I should put it in another place e.g main menu?. I will confirm 
-	the customer details in the customer details function. The system will ask, "are your detail correcct?", if they're 
-	information is wrong they can re-edit it and cofirm again. Fianlly, I need to add more commenting and add doctyping.
-	These are things I will add in future sprints.  
+	 details function and find out how to calculate the grand total in the review order function. In terms of validation I 
+	 need basic string validation, which is, converting string input into upper case. I also need integer limits for lists, 
+	 phone number integer limits, address character requiremnets / limits as well as a limit on the amount of a dish that you 
+	 can order. Most importantly I need to add validation which doesnt let the user quit the program until they have entered 
+	 they're customer details. Another thing I need to figure out and improve on is the format of my program, I am planning 
+	 to print the order in the customer details function. I might also make a "confirm customer details" fucntion. I also 
+	 need to decide when to ask the user to confirm their order, I dont know whether I should confirm their order once they 
+	 press "quit" or if I should put it in another place e.g main menu?. I will confirm the customer details in the customer
+	  details function. The system will ask, "are your detail correcct?", if they're information is wrong they can re-edit 
+	  it and confirm again. Fianlly, I need to add more commenting and add doctyping. These are things I will add in future 
+	  sprints.  
 </p>
 <hr>
 <br>
@@ -313,26 +316,171 @@
 </p>
 <hr>
 <h2>Github</h2>
-<img class="img-responsive" src="assets/img/SPRINT4/" alt="">
+<img class="img-responsive" src="assets/img/SPRINT4/BACKLOG.png" alt="">
 <hr>
 <br>
-
 <h2>Code plan on paper</h2>
-<img class="img-responsive" src="assets/img/SPRINT4/" alt="">
-<img class="img-responsive" src="assets/img/SPRINT4/" alt="">
+<p>This was unsuccesful pseudo code for calculating the delivery charge, however the grand total calculation</p>
+<img class="img-responsive" src="assets/img/SPRINT4/PAPERPLAN1.jpg" alt="">
+<p>This was succesful pseudo code for calculating the delivery charge and grand total</p>
+<img class="img-responsive" src="assets/img/SPRINT4/PAPERPLAN2.jpg" alt="">
 <hr>
 <br>
 <h2>Tests</h2>
+<p> One of the first issues with my code was that if the user edited their order, the price would always increase. I realised
+	this was because I was multiplying the edited amount by the total price rather than the singular price. Below is the 
+	incorrect code for calculating the price when editing the order, and the test. 
+</p>
+<img class="img-responsive" src="assets/img/SPRINT4/EditOrderWrongCode.png" alt="">
+<br>
+<img class="img-responsive" src="assets/img/SPRINT4/EditOrderPriceIssue.png" alt="">
+<br>
+<p>I fixed this by dividing the total price by the old amount, this calculated the singulr price. I then multiplied the 
+	new amount by the singular price.</p>
+<img class="img-responsive" src="assets/img/SPRINT4/EditOrderCorrectCode2.png" alt="">
+<br>
+<img class="img-responsive" src="assets/img/SPRINT4/EditOrderCorrectCode.png" alt="">
+<br>
+<img class="img-responsive" src="assets/img/SPRINT4/GrandTotalChangingWithEdit.png" alt="">
+<br>
+<p> At first I didn’t know how to calculate the grand total, I started off by making a price list and doing the sum of the 
+	list. The first issue I realsied was my grand-total calculation were completely wrong. It turns out, this was because 
+	there was an issue with the loop, causing certain prices to be added multiple times.</p>
+ <img class="img-responsive" src="assets/img/SPRINT4/WrongPriceInList.png" alt="">
+ <br>
+ <p>This happened because each time the user reviewed their order, it re-calculated the grand total and appended it to the
+	 price list. I fixed this by clearing the list each time the user wanted to review their order. This way, the price was 
+	 re-calculated each time. This is a successful test after I was finally able to fix the grand total. The formatting of 
+	 how the grand-total prints isnt good, I will fix this in my final sprint. I had to make a "grand_total_calc" function 
+	 was separate from the review order fucntion as I also have to calculate / use this function in other areas of my code.  
+ </p>
+ <img class="img-responsive" src="assets/img/SPRINT4/CORRECTeditGrandTotalCode.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/CorrectGrandTotal.png" alt="">
+ <br>
+ <p>the next issue I had was I didnt know how to incorperate the delivery charge into the function. At first, I tried to 
+	 add a delivery charge to the price list in the customer details function. I realised this didnt work because everytime
+	 the user reviews their order, the list is cleared, therefore the delivery charge is also cleared. Below are 
+	 unsucessful tests where the system crahses or doesnt add on the delivery charge correclty.</p>
+
+	 <img class="img-responsive" src="assets/img/SPRINT4/ReviewDeliveryChargeFail.png" alt="">
+	 <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/DeliveryChargeWrong.png" alt="">
+ <br>
+ <p> I fixed this including the user's choice (Pick-up to Delivery) in the order list and then I used an "if" statement in 
+	 the review order so that, if "D" / delivery is in the order list, then $3 is appened to the price list. However, then I 
+	realised that this code doesnt take into account that the "pickup list" is shorter than the "delivery list" because in 
+the delivery list there is the name, phone number, address, "D"; whereas in the pickup list there is the name, phone number, 
+"P". This meant that c_list[x][3] is out of range for the pickup list </p>
+ <img class="img-responsive" src="assets/img/SPRINT4/DeliveryChargeWrongCode.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/DeliveryChargeCrash.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/DeliveryChargeCrash2.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/DeliveryChargeCrash3.png" alt="">
+ <br>
+ <p> This is a successful test after I tried to fix the code </p>
+ <img class="img-responsive" src="assets/img/SPRINT4/SuccessfulDeliveryCharecode.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/DeliveryChargeSuccess.png" alt="">
+ <br>
+ <p> CONFIRM ORDER
+ </p>
+ <p> I made a confirm order function so that the user could confirm the dishes the order. I initially had a crash because 
+	 I had the wrong arguments in my function, this was an easy fix. </p>
+ <img class="img-responsive" src="assets/img/SPRINT4/ConfimOrderCrash.png" alt="">
+ <br>
+<p> Successful Code: this is the code for the user to confirm their order and below is the code for the user to 
+	their customer details. For the confrim order function I ask the user if they confirm their order, if they say
+	"Yes" it appends "Y" to the confirm order list and the confirm function terminates, if they say "No" it appends
+	"N" to the confirm order list and asks them if they want to edit their order. If the user says no, the function 
+	terminates. But, if they say yes, it call the edit_order function and they can edit their order. The same process 
+	applies to the confirm customer function, however, instead of asking the user if they want to edit their details
+	it just calls the "customer details function". This is because if there is already something in the list, 
+	that function asks if you want to edit your customer details. One thing which I have to keep an eye on is that 
+	I have called a function inside my function, which could be dangerous at times. Luckily my code is functional </p>
+<img class="img-responsive" src="assets/img/SPRINT4/ConfirmOrderCode.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/ConfirmCustomerCode.png" alt="">
+ <br>
+
+ <p>I then made a "finish ordering" function which prevents the user from leaving if they havent entered their details. As
+	well as this, it calls the confirm order function and confirm customer function. At first I thought this function would
+	work, however I encountered many problems, some of which I dont even know how to fix yet, I will try fix most of these 
+	issues in my final sprint (sprint 5).
+</p>
+<br>
+<p>The first issue I realised with my code was that the user could go to the "finishing order" function without ordering 
+	anything or entering their customer details, I hadnt accounted for this in my initial validation. I also didnt account 
+	for the fact that the user could've not ordered anything, and it's likely that the program could crash from this.
+</p>
+<img class="img-responsive" src="assets/img/SPRINT4/FinishingOrderWrongCode.png" alt="">
+<br>
+<p>I fixed this by adding this validation:
+</p>
+<img class="img-responsive" src="assets/img/SPRINT4/FinishingOrderValidation.png" alt="">
+<br>
+<img class="img-responsive" src="assets/img/SPRINT4/FinishingUpValidation.png" alt="">
+<br>
+<img class="img-responsive" src="assets/img/SPRINT4/FinishValidation2.png" alt="">
+<br>
+<img class="img-responsive" src="assets/img/SPRINT4/FinishingOrderSuccessTest1.png" alt="">
+<br>
+
+<p>The second issue was that I printed the grand total out of the loop of my grand total calculation function,
+	this was so that the grand total doesnt't print multiple times, as the "for i in range" loop causes it to
+	print multiple times. But putting it out of the loop has causes severe problems.
+</p>
+<img class="img-responsive" src="assets/img/SPRINT4/GrandTotalOutOfLoop.png" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/FinishingOrderError.png" alt="">
+ <br>
+
+ <p>One of the biggest crashes I had was the when the finishing order function was malfunctioninf for some unknown reason. 
+	 Here you can see that when the user confirms their customer or order details, the program starts doing weird things, 
+	 especially when the user enters "No" to the questions, this is an issue I will fix in my final sprint. 
+ </p>
+ <img class="img-responsive" src="assets/img/SPRINT4/FinishOrderCrash.png" alt="">
+ <br>
+ <p>It was tricky to understand why my final issue occured</p>
+ <img class="img-responsive" src="assets/img/SPRINT4/OutOfRangeCrash.png" alt="">
+ <br>
+ <p>I added validation to try and prevent the system from crashing again</p>
+ <img class="img-responsive" src="assets/img/SPRINT4/FixingConfirmList.png" alt="">
+ <br>
+ <h2>Reflection</h2>
+ <p>
+As you can see from the large number of test, there were many functionality issues in functions (other than validation).
+I realised the price in "editing order" wrong because I was multiplying the edited amount by the total price rather than 
+the singular price. I also realised that when the user edits the order, the old price doesn’t remove from the price list.
+I managed to fix this by clearing the price list each time the function is called, then i do the usual appending etc. I 
+fixed this by dividing the total by the old amount, and multiplying by the new amount. Another issue is that I didn’t 
+know how to store the prices and then calculate the grand total. I also realised that clearing the price_list, meant the 
+delivery charge was also cleared. I fixed this by using an if statement to add a three dollar delivery charge in grand 
+total function, after the list had been cleared. I also realised that if D is not in the list and P is instead, it crashes 
+because the list is different lengths if they choose to pickup or delivery. I fixed this by writing : if “D” in c_list[i]
+rather than a more specific statement : if "D" in c_list[i][3]. After this I added a confirm order and confirm customer
+details function, I called these in my new "finishing up" function where it. This function was supposed to: asks them to 
+confirm their order, confirm their details, clears all the list. However, I encountered some issues in this function. 
+In the next sprint I will fix the issues I found in this sprint as well as adding solid validation.
+ </p>
+
+
+ <img class="img-responsive" src="assets/img/SPRINT4/" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/" alt="">
+ <br>
+ <img class="img-responsive" src="assets/img/SPRINT4/" alt="">
+ <br>
  <img class="img-responsive" src="assets/img/SPRINT4/" alt="">
  <br>
  <img class="img-responsive" src="assets/img/SPRINT4/" alt="">
  <br>
  <img class="img-responsive" src="assets/img/SPRINT4/" alt="">
  <hr>
- <h2>Reflection</h2>
- <p>
+ <br>
 
- </p>
 
 <h2>Final Reflection</h2>
 <h1> Relevant Implications Summary</h1>
