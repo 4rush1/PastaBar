@@ -5,9 +5,48 @@ def get_integer(m):
     :param m: integer input
     :return: integer
     """
+    while True:
+        try:
+            my_integer = int(input(m))
+            return my_integer
+        except ValueError:
+            print("please enter a number")
+            print("_" * 50)
+            continue
 
-    my_integer = int(input(m))
-    return my_integer
+def get_integer_list_limit(m, l):
+    """
+    This function allows the user to enter integer input, and not string
+    :param m: integer input
+    :return: integer
+    """
+    integer_loop = True
+    while integer_loop is True:
+        my_integer = int(input(m))
+        if my_integer in range(0,len(l)):
+            return my_integer
+        else:
+            print("the number you entered is not in the list")
+            print("_" * 50)
+            continue
+
+def get_integer_dish_limit(m):
+    """
+    This function allows the user to enter integer input, and not string
+    :param m: integer input
+    :return: integer
+    """
+    min_ = 1
+    max_ = 6
+    integer_limit_loop = True
+    while integer_limit_loop is True:
+        my_integer = int(input(m))
+        if my_integer in range(min_, max_):
+            return my_integer
+        else:
+            print("you can only order between {} to {} of each dish".format(min_, max_))
+            print("_" * 50)
+            continue
 
 def get_string(m):
     """Get a validated string from user input.
@@ -15,8 +54,34 @@ def get_string(m):
     :param m: string input
     :return: string
     """
-    my_string = input(m)
-    return my_string.upper().strip()
+    while True:
+        try:
+            my_string = input(m)
+            return my_string.upper().strip()
+        except ValueError:
+            print("invalid entry")
+            print("_" * 50)
+            continue
+
+def get_string_phone_limit(m):
+    """
+    This function allows the user to enter integer input, and not string
+    :param m: integer input
+    :return: integer
+    """
+    min_ = 5
+    max_ = 15
+    string_limit_loop = True
+    while string_limit_loop is True:
+        my_string = int(input(m))
+        if len(my_string) in range(min_,max_):
+            return my_string
+        else:
+            if len(my_string) < 5:
+                print("the phone number you have entered is too small")
+            elif len(my_string) > 15:
+                    print("the phone number you have entered is too big")
+            continue
 
 # REVIEW LISTS
 def print_list(l):
@@ -27,6 +92,11 @@ def print_list(l):
     """
     for i in range(0, len(l)):
         output = "{:10} {:10}".format(l[i][0], l[i][1])
+        print(output)
+
+def print_list_2(l):
+    for i in range(0, len(l)):
+        output = "{} : {:10} , {:10}".format(l[i][0], l[i][1], l[i][2])
         print(output)
 
 def print_with_price(l):
@@ -74,10 +144,12 @@ def review_total_order(o_list, p, c_list):
     :return:
     """
     for i in range(0, len(o_list)):
+        print_list_2(c_list)
+        print("_" * 50)
         output = "You have ordered {} {} for ${:.2f}".format(o_list[i][0], o_list[i][1], o_list[i][2])
         print(output)
     print( "your grand total: ${}".format( grand_total_calc(o_list, p, c_list) ) )
-
+    print("_" * 50)
 
 def grand_total_calc(o_list,p, c_list):
     """Here I am trying to calculate the grand total
@@ -121,53 +193,6 @@ def stay_or_return(m = "Do you want to (C)ontinue on this menu or (R)eturn to th
         else:
             return False
 
-def confirm_order(c_o, o_list, p, c_list, m="Do you confirm this order (Y/N)"):
-    """
-    function for user to confirm if their order is correct
-    :param c_o: confirm_o_list
-    :param o_list: order_list
-    :param p: price_list
-    :param c_list: customer_list
-    :param m: string message
-    :return:
-    """
-    # do you want to order again
-    # if not return None
-    c_o.clear()
-    print(o_list)
-    response = get_string(m)
-    print("_" * 50)
-    if response == "Y":
-        c_o.append("Y")
-    elif response == "N":
-        c_o.append("N")
-        edit = get_string("Do you want to edit your order (Y/N)? ")
-        if edit == "Y":
-            edit_order(o_list,p, c_list)
-    return None
-
-def confirm_customer(c_c, o_list, c_list, m="Do you confirm your details (Y/N)"):
-    """
-    Confirm if their customer details are correct
-    :param c_c: confirm_c_list
-    :param o_list: order_list
-    :param c_list: customer_list
-    :param m: string message
-    :return:
-    """
-    # do you want to order again
-    # if not return None
-    c_c.clear()
-    print(c_list)
-    response = get_string(m)
-    print("_" * 50)
-    if response == "Y":
-        c_c.append("Y")
-    elif response == "N":
-        c_c.append("N")
-        customer_details(c_list, o_list)
-    return None
-
 # ORDERING
 def order(m, o_list):
     """
@@ -182,9 +207,10 @@ def order(m, o_list):
         print("_" * 50)
         if stay_or_return() is False:
             return None
-        dish = get_integer("Enter the number of the dish you would like to order ---> ")
+        dish = get_integer_list_limit("Enter the number of the dish you would like to order ---> ", m)
+        print("_" * 50)
         name = m[dish][0]
-        amount = get_integer("How many would you like ---> ")
+        amount = get_integer_dish_limit("How many would you like ---> ")
         print("_" * 50)
         price = m[dish][1]
         total_price = price * amount
@@ -203,7 +229,7 @@ def edit_order(o_list,p, c_list):
     """
     print_order_with_indexes(o_list)
     print("_" * 50)
-    my_index = get_integer("Please enter the number of the dish you would like to edit / remove")
+    my_index = get_integer_list_limit("Please enter the number of the dish you would like to edit / remove", o_list)
     name = o_list[my_index][1]
     single_price= o_list[my_index][2]/o_list[my_index][0]
     new_amount = get_integer("How many {} do you want now? If you would like to remove this dish, please enter 0".format(o_list[my_index][1]))
@@ -242,7 +268,7 @@ def customer_details(c_list, o_list):
 
     customer_name = get_string("Please enter your name for this order: ")
     recieving_food = get_string("{} would you like (P)ickup or (D)elivery?".format(customer_name))
-    customer_phone = get_integer("Please enter your phone number: ")
+    customer_phone = get_string_phone_limit("Please enter your phone number: ")
     time = len(o_list) * 20
     if recieving_food == "D":
         address = get_string("Please enter your street address to deliver to: ")
@@ -254,24 +280,18 @@ def customer_details(c_list, o_list):
         print("_" * 50)
         temp_P = [customer_name, customer_phone, recieving_food]
         c_list.append(temp_P)
-    print(c_list)
+    print_list_2(c_list)
 
 #User finishing their order
-def finishing_order(c_list, o_list, p, c_o, c_c):
+def finishing_order(c_list, o_list, c_l, p, m="Do you confirm your order and details (Y/N)"):
     """
     Finish ordering, enter final or last details that they forgot to enter before, confirm orders and details, clear list and start over
     :param c_list: customer_list
     :param o_list: order_list
-    :param p: price_list
-    :param c_o: confirm_o_list
-    :param c_c: confirm_c_list
+    :param c_l: confirm_o_list
     :return:
     """
-    if len(c_list) == 0 and len(o_list)== 0:
-        print("You haven't ordered anything or entered your customer details, please order first. If you want to quit enter 'Q' on the main menu")
-        print("_" * 50)
-        return None
-    elif len(o_list) == 0:
+    if len(o_list) == 0:
         print("You haven't ordered anything yet, please order first or if you want to quit enter 'Q' on the main menu")
         print("_" * 50)
         return None
@@ -279,22 +299,25 @@ def finishing_order(c_list, o_list, p, c_o, c_c):
         customer_details(c_list, o_list)
         print("_" * 50)
 
-    print("calling review")
+    # do you want to order again
+    # if not return None
+    c_l.clear()
     review_total_order(o_list, p, c_list)
     print("_" * 50)
-    print("calling confirm order")
-    confirm_order(c_o, o_list, p, c_list)
+    response = get_string(m)
     print("_" * 50)
-    print("calling confirm customer")
-    confirm_customer(c_c, o_list, c_list)
-    print("_" * 50)
-    print("We are finishing you order now")
-
-    #c_list.clear()
-    #o_list.clear()
-    #p.clear()
-    #c_o.clear()
-    #c_c.clear()
+    if response == "Y":
+        c_l.append("Y")
+        print("_" * 50)
+        print("We are finishing you order now")
+        print("Starting New order")
+        print("_" * 50)
+        c_list.clear()
+        o_list.clear()
+        p.clear()
+        c_l.clear()
+    elif response == "N":
+        return None
 
 def get_order_menu():
     """
@@ -344,7 +367,8 @@ def get_order_menu():
     print("_" * 50)
 
     # CHOOSE WHICH MENU YOU WANT
-    choose_menu = get_integer("Select the number of the menu you would like to print ---> ")
+    choose_menu = get_integer_list_limit("enter the number of the menu you would like to print ---> ", food_menu)
+    print("_" * 50)
     if choose_menu == 0:
 
         return pasta_menu
@@ -357,10 +381,6 @@ def get_order_menu():
     elif choose_menu == 3:
 
         return desserts_menu
-    else:
-        print("Invalid entry, try again")
-        print("_" * 50)
-
 
 def main():
     """
@@ -378,15 +398,12 @@ def main():
         ]
 
     order_list = []
-    order_list = [[1, 'Fusilli Pesto', 19]]
 
     customer_list = []
-    customer_list=[['PAUL', 223837638, 'P']]
 
     price_list = []
 
-    confirm_o_list = []
-    confirm_c_list = []
+    confirm_list = []
 
 #  MENU LOOP
     menu_loop = True
@@ -396,7 +413,7 @@ def main():
         print("_" * 50)
 
         # CHOOSE MENU OPTION : PRINT OR QUIT
-        user_choice = get_string("Please select an option from the menu above --> ")
+        user_choice = get_string("Please enter an option from the menu above --> ")
         print("_" * 50)
 
         # CHOICE P
@@ -431,11 +448,11 @@ def main():
                 print("_" * 50)
 
         elif user_choice == "C":
-                customer_details(customer_list, order_list)
-                print("_" * 50)
+            customer_details(customer_list, order_list)
+            print("_" * 50)
 
         elif user_choice == "F":
-            finishing_order(customer_list, order_list, price_list, confirm_o_list, confirm_c_list)
+            finishing_order(customer_list, order_list, confirm_list, price_list)
 
         elif user_choice == "Q":
             menu_loop = False
