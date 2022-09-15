@@ -8,6 +8,7 @@ def get_integer(m):
     while True:
         try:
             my_integer = int(input(m))
+            print("_" * 50)
             return my_integer
         except ValueError:
             print("please enter a number")
@@ -24,6 +25,7 @@ def get_integer_list_limit(m, l):
     while integer_loop is True:
         try:
             my_integer = int(input(m))
+            print("_" * 50)
         except ValueError:
             print("please enter a number")
             print("_" * 50)
@@ -42,11 +44,12 @@ def get_integer_dish_limit(m):
     :return: integer
     """
     min_ = 1
-    max_ = 7
+    max_ = 5
     integer_limit_loop = True
     while integer_limit_loop is True:
         try:
             my_integer = int(input(m))
+            print("_" * 50)
         except ValueError:
             print("please enter a number")
             print("_" * 50)
@@ -67,9 +70,10 @@ def get_string(m):
     while True:
         try:
             my_string = input(m)
+            print("_" * 50)
             return my_string.upper().strip()
         except ValueError:
-            print("invalid entry")
+            print("invalid entry, please enter one of the options")
             print("_" * 50)
             continue
 
@@ -79,18 +83,25 @@ def get_string_phone_limit(m):
     :param m: string input
     :return: string
     """
-    min_ = 5
-    max_ = 15
+    min_ = 3
+    max_ = 20
     string_limit_loop = True
     while string_limit_loop is True:
-        my_string = input(m)
-        if len(my_string) in range(min_,max_):
+        try:
+            my_string = input(m)
+            print("_" * 50)
+        except ValueError:
+            print("please enter your phone number")
+            print("_" * 50)
+            continue
+        if len(my_string) in range(min_, max_):
             return my_string
         else:
             if len(my_string) < min_:
-                print("the phone number you have entered is too small")
-            elif len(my_string) > max_:
-                print("the phone number you have entered is too big")
+                print("please enter a phone number, your phone number may be too short")
+                print("_" * 50)
+            if len(my_string) > max_:
+                print("it seems like your phone number is too long")
             continue
 
 def get_string_address_limit(m):
@@ -99,18 +110,52 @@ def get_string_address_limit(m):
     :param m: string input
     :return: string
     """
-    min_ = 5
-    max_ = 45
+    min_ = 4
+    max_ = 50
     string_limit_loop = True
     while string_limit_loop is True:
-        my_string = input(m)
-        if len(my_string) in range(min_,max_):
+        try:
+            my_string = input(m)
+            print("_" * 50)
+        except ValueError:
+            print("please enter your street address")
+            print("_" * 50)
+            continue
+        if len(my_string) in range(min_, max_):
             return my_string
         else:
             if len(my_string) < min_:
-                print("the address you have entered is too small")
-            elif len(my_string) > max_:
-                print("the address number you have entered is too big")
+                print("please enter your street address, your address may be too short")
+                print("_" * 50)
+            if len(my_string) > max_:
+                print("it seems like your street address is too long")
+                print("_" * 50)
+            continue
+
+def get_string_name_limit(m):
+    """
+    This function allows the user to enter string input
+    :param m: string input
+    :return: string
+    """
+    min_ = 2
+    max_ = 20
+    string_limit_loop = True
+    while string_limit_loop is True:
+        try:
+            my_string = input(m)
+            print("_" * 50)
+        except ValueError:
+            continue
+        if len(my_string) in range(min_, max_):
+            return my_string
+        else:
+            if len(my_string) > max_:
+                print("this name is too long, enter your first name")
+                print("_" * 50)
+            elif len(my_string) < min_:
+                print("enter your first name, this name may be too short")
+                print("_" * 50)
             continue
 
 # REVIEW LISTS
@@ -126,8 +171,13 @@ def print_list(l):
 
 def print_list_2(l):
     for i in range(0, len(l)):
-        output = "{} : {:10} , {:10}".format(l[i][0], l[i][1], l[i][2])
-        print(output)
+        if "D" in l[i]:
+            output = "{} : {:10} , {:10}, {}".format(l[i][0], l[i][1], l[i][2], l[i][3])
+            print(output)
+
+        elif "P" in l[i]:
+            output = "{} : {:10}, {}".format(l[i][0], l[i][1], l[i][2])
+            print(output)
 
 def print_with_price(l):
     """
@@ -174,12 +224,18 @@ def review_total_order(o_list, p, c_list):
     :return:
     """
     for i in range(0, len(o_list)):
-        print_list_2(c_list)
-        print("_" * 50)
         output = "You have ordered {} {} for ${:.2f}".format(o_list[i][0], o_list[i][1], o_list[i][2])
         print(output)
     print( "your grand total: ${}".format( grand_total_calc(o_list, p, c_list) ) )
     print("_" * 50)
+    print_list_2(c_list)
+
+    for j in range(0, len(c_list)):
+        if "D" in c_list[j]:
+            print("including $3 delivery charge")
+            print("_" * 50)
+
+
 
 def grand_total_calc(o_list,p, c_list):
     """Here I am trying to calculate the grand total
@@ -215,8 +271,10 @@ def stay_or_return(m = "Do you want to (C)ontinue on this menu or (R)eturn to th
     getting_response = True
     while getting_response is True:
         response = get_string(m)
+        print("_" * 50)
         if response not in ["C", "R"]:
             print("invalid entry, try again")
+            print("_" * 50)
             continue
         elif response == "C":
             return True
@@ -260,9 +318,10 @@ def edit_order(o_list,p, c_list):
     print_order_with_indexes(o_list)
     print("_" * 50)
     my_index = get_integer_list_limit("Please enter the number of the dish you would like to edit / remove", o_list)
+    print("_" * 50)
     name = o_list[my_index][1]
     single_price= o_list[my_index][2]/o_list[my_index][0]
-    new_amount = get_integer("How many {} do you want now? If you would like to remove this dish, please enter 0".format(o_list[my_index][1]))
+    new_amount = get_integer_dish_limit("How many {} do you want now? If you would like to remove this dish, please enter 0".format(o_list[my_index][1]))
     print("_" * 50)
     old_amount = o_list[my_index][0]
     if new_amount == 0:
@@ -277,7 +336,8 @@ def edit_order(o_list,p, c_list):
         print("you now have {} {} instead of {} {}, this costs ${:.2f}".format(new_amount, o_list[my_index][1], old_amount, o_list[my_index][1], new_price))
         print("_" * 50)
     else:
-        print("invalid entry, try again")
+        print("invalid entry, please enter a number")
+        print("_" * 50)
 
 #CUSTOMER DETAILS
 def customer_details(c_list, o_list):
@@ -289,28 +349,44 @@ def customer_details(c_list, o_list):
     """
     if len(c_list) > 0:
         re_enter = get_string("We already have your details, do you want to update them? (Y/N)")
+        print("_" * 50)
         if re_enter == "Y":
             c_list.clear()
         elif re_enter == "N":
             return None
         else:
             print("invalid entry, try again")
+            print("_" * 50)
 
-    customer_name = get_string("Please enter your name for this order: ")
-    recieving_food = get_string("{} would you like (P)ickup or (D)elivery ($3 delivery charge)?".format(customer_name))
-    customer_phone = get_string_phone_limit("Please enter your phone number: ")
-    time = len(o_list) * 20
-    if recieving_food == "D":
-        address = get_string("Please enter your street address to deliver to: ")
+    customer_name = get_string_name_limit("Please enter your first name for this order: ")
+    print("_" * 50)
+    customer_loop = True
+    while customer_loop is True:
+        recieving_food = get_string("{} would you like (P)ickup or (D)elivery ($3 delivery charge)?".format(customer_name))
         print("_" * 50)
-        temp_D = [customer_name, address, customer_phone, recieving_food]
-        c_list.append(temp_D)
-    elif recieving_food == "P":
-        print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} minsO".format(customer_name,time))
-        print("_" * 50)
-        temp_P = [customer_name, customer_phone, recieving_food]
-        c_list.append(temp_P)
-    print_list_2(c_list)
+        time = len(o_list) * 20
+        if recieving_food == "D":
+            customer_phone = get_string_phone_limit("Please enter your phone number: ")
+            address = get_string_address_limit("Please enter your street address to deliver to: ")
+            print("_" * 50)
+            temp_D = [customer_name, address, customer_phone, recieving_food]
+            c_list.append(temp_D)
+            print_list_2(c_list)
+            print("_" * 50)
+            return False
+        elif recieving_food == "P":
+            customer_phone = get_string_phone_limit("Please enter your phone number: ")
+            print("{} please pickup your order from 132 Cuba Street, Te Aro, Wellington in {} mins".format(customer_name,time))
+            print("_" * 50)
+            temp_P = [customer_name, customer_phone, recieving_food]
+            c_list.append(temp_P)
+            print_list_2(c_list)
+            print("_" * 50)
+            return False
+        else:
+            print("invalid entry, enter P or D")
+            print("_" * 50)
+            continue
 
 #User finishing their order
 def finishing_order(c_list, o_list, c_l, p, m="Do you confirm your order and details (Y/N)"):
@@ -338,9 +414,9 @@ def finishing_order(c_list, o_list, c_l, p, m="Do you confirm your order and det
     print("_" * 50)
     if response == "Y":
         c_l.append("Y")
-        print("_" * 50)
         print("We are finishing you order now")
-        print("Starting New order")
+        print("_" * 50)
+        print("Starting NEW order")
         print("_" * 50)
         c_list.clear()
         o_list.clear()
@@ -399,17 +475,14 @@ def get_order_menu():
     # CHOOSE WHICH MENU YOU WANT
     choose_menu = get_integer_list_limit("enter the number of the menu you would like to print ---> ", food_menu)
     print("_" * 50)
-    if choose_menu == 0:
 
+    if choose_menu == 0:
         return pasta_menu
     elif choose_menu == 1:
-
         return vegan_menu
     elif choose_menu == 2:
-
         return antipasto_menu
     elif choose_menu == 3:
-
         return desserts_menu
 
 def main():
@@ -458,13 +531,11 @@ def main():
             menu = get_order_menu()
             print("_" * 50)
             order(menu, order_list)
-            print("_" * 50)
 
         #CHOICE E
         elif user_choice == "E":
             if len(order_list) > 0:
                 edit_order(order_list, price_list, customer_list)
-                print("_" * 50)
             else:
                 print("you havent ordered anything yet, please order first")
                 print("_" * 50)
@@ -472,14 +543,12 @@ def main():
         elif user_choice == "R":
             if len(order_list) > 0:
                 review_total_order(order_list, price_list, customer_list)
-                print("_" * 50)
             else:
                 print("you havent ordered anything yet, please order first")
                 print("_" * 50)
 
         elif user_choice == "C":
             customer_details(customer_list, order_list)
-            print("_" * 50)
 
         elif user_choice == "F":
             finishing_order(customer_list, order_list, confirm_list, price_list)
@@ -487,7 +556,7 @@ def main():
         elif user_choice == "Q":
             menu_loop = False
             print("Thank you for your time")
-            print("_" * 50)
+            print("_" * 100)
 
         else:
             print("Invalid entry, try again")
