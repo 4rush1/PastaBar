@@ -22,11 +22,16 @@ def get_integer_list_limit(m, l):
     """
     integer_loop = True
     while integer_loop is True:
-        my_integer = int(input(m))
-        if my_integer in range(0,len(l)):
+        try:
+            my_integer = int(input(m))
+        except ValueError:
+            print("please enter a number")
+            print("_" * 50)
+            continue
+        if my_integer in range(0, len(l)):
             return my_integer
         else:
-            print("the number you entered is not in the list")
+            print("invalid entry, the number you entered is not in the list")
             print("_" * 50)
             continue
 
@@ -37,14 +42,19 @@ def get_integer_dish_limit(m):
     :return: integer
     """
     min_ = 1
-    max_ = 6
+    max_ = 7
     integer_limit_loop = True
     while integer_limit_loop is True:
-        my_integer = int(input(m))
-        if my_integer in range(min_, max_):
+        try:
+            my_integer = int(input(m))
+        except ValueError:
+            print("please enter a number")
+            print("_" * 50)
+            continue
+        if my_integer in range(min_ - 1, max_ + 1):
             return my_integer
         else:
-            print("you can only order between {} to {} of each dish".format(min_, max_))
+            print("invalid entry, you can only order between {} to {} of each dish".format(min_, max_))
             print("_" * 50)
             continue
 
@@ -65,22 +75,42 @@ def get_string(m):
 
 def get_string_phone_limit(m):
     """
-    This function allows the user to enter integer input, and not string
-    :param m: integer input
-    :return: integer
+    This function allows the user to enter string input
+    :param m: string input
+    :return: string
     """
     min_ = 5
     max_ = 15
     string_limit_loop = True
     while string_limit_loop is True:
-        my_string = int(input(m))
+        my_string = input(m)
         if len(my_string) in range(min_,max_):
             return my_string
         else:
-            if len(my_string) < 5:
+            if len(my_string) < min_:
                 print("the phone number you have entered is too small")
-            elif len(my_string) > 15:
-                    print("the phone number you have entered is too big")
+            elif len(my_string) > max_:
+                print("the phone number you have entered is too big")
+            continue
+
+def get_string_address_limit(m):
+    """
+    This function allows the user to enter string input
+    :param m: string input
+    :return: string
+    """
+    min_ = 5
+    max_ = 45
+    string_limit_loop = True
+    while string_limit_loop is True:
+        my_string = input(m)
+        if len(my_string) in range(min_,max_):
+            return my_string
+        else:
+            if len(my_string) < min_:
+                print("the address you have entered is too small")
+            elif len(my_string) > max_:
+                print("the address number you have entered is too big")
             continue
 
 # REVIEW LISTS
@@ -267,7 +297,7 @@ def customer_details(c_list, o_list):
             print("invalid entry, try again")
 
     customer_name = get_string("Please enter your name for this order: ")
-    recieving_food = get_string("{} would you like (P)ickup or (D)elivery?".format(customer_name))
+    recieving_food = get_string("{} would you like (P)ickup or (D)elivery ($3 delivery charge)?".format(customer_name))
     customer_phone = get_string_phone_limit("Please enter your phone number: ")
     time = len(o_list) * 20
     if recieving_food == "D":

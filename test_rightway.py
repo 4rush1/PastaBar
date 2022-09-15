@@ -79,7 +79,7 @@ def grand_total(l,p, c_list):
     for i in range(0, len(l)):
         #creating price list
         p.append(l[i][2])
-        grand_total = sum(p)
+    grand_total = sum(p)
     print(p)
     print(grand_total)
 
@@ -117,7 +117,13 @@ def customer_details(c_list, o_list, p):
 
     customer_name = get_string("Please enter your name for this order: ")
     recieving_food = get_string("Would you like (P)ickup or (D)elivery?")
-    customer_phone = get_integer("Please enter your phone number: ")
+    customer_phone = get_string("Please enter your phone number: ")
+
+    #print(customer_phone)
+
+    #testing len of phone number
+    print(len(customer_phone))
+
 
     if recieving_food == "D":
         address = get_string("Please enter your street address to deliver to: ")
@@ -178,10 +184,10 @@ def main():
     #print(name)
 
     #review_total_order(list1, price_list)
-    #customer_details(customer_list, list1, price_list)
+    customer_details(customer_list, list1, price_list)
     #grand_total(list1, price_list, customer_list)
 
-    confirm(confirm_list, list1)
+    #confirm(confirm_list, list1)
 
 
 main()
